@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Quieres ser mi novia?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yes {
+      background-color: #ff69b4;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+      position: absolute;
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      color: red;
+      animation: fall 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="mainContent">
+    <h1>¿Quieres ser mi novia?</h1>
+    <button id="yes">Sí</button>
+    <button id="no">No</button>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    let yesFontSize = 18;
+
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = ${x}px;
+      noBtn.style.top = ${y}px;
+
+      // Aumentar tamaño del botón Sí
+      yesFontSize += 5;
+      yesBtn.style.fontSize = ${yesFontSize}px;
+    }
+
+    noBtn.addEventListener('mouseover', moveNoButton);
+
+    yesBtn.addEventListener('click', () => {
+      document.body.innerHTML = `
+        <div class="container">
+          <h1 style="font-size:2.5em; color:#ff69b4;">¡Sabía que dirías que sí <3</h1>
+        </div>
+      `;
+
+      // Lluvia de corazones
+      for (let i = 0; i < 100; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = '❤';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+      }
+    });
+  </script>
+
+</body>
+</html>
